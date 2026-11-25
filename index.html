@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSI Future Football Cup – Portale ufficiale</title>
+<meta name="description" content="Calendari, risultati, classifiche, marcatori e regolamento della CSI Future Football Cup – CSI Firenze.">
+<style>
+  :root{
+    --blu:#0b3d91; --blu2:#1565c0; --giallo:#ffc107; --sfondo:#f3f6fb; --carta:#fff;
+    --testo:#1b2430; --muted:#5d6b7e; --linea:#e3e8f0; --verde:#1b8a4b; --rosso:#c62828;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--sfondo);color:var(--testo);line-height:1.5}
+  header{background:linear-gradient(135deg,var(--blu),var(--blu2));color:#fff;padding:28px 16px 0}
+  .wrap{max-width:980px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:14px}
+  .badge{width:52px;height:52px;border-radius:14px;background:var(--giallo);color:var(--blu);display:grid;place-items:center;font-weight:900;font-size:20px;flex:none}
+  h1{margin:0;font-size:clamp(22px,4vw,30px);letter-spacing:.3px}
+  .sub{opacity:.85;font-size:14px}
+  nav{display:flex;gap:4px;overflow-x:auto;margin-top:22px;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex:none;background:transparent;border:0;color:#fff;opacity:.8;padding:12px 14px;font-size:15px;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer}
+  nav button.on{background:var(--sfondo);color:var(--blu);opacity:1}
+  main{padding:20px 16px 48px}
+  .card{background:var(--carta);border:1px solid var(--linea);border-radius:14px;padding:18px;margin-bottom:16px}
+  h2{font-size:20px;margin:0 0 12px;color:var(--blu)}
+  h3{font-size:16px;margin:18px 0 8px}
+  .muted{color:var(--muted);font-size:14px}
+  .sel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .sel button{border:1px solid var(--linea);background:#fff;border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer}
+  .sel button.on{background:var(--blu);color:#fff;border-color:var(--blu)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:9px 6px;border-bottom:1px solid var(--linea);text-align:center}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
+  td.l,th.l{text-align:left}
+  td.pt{font-weight:800;color:var(--blu)}
+  tr:last-child td{border-bottom:0}
+  .pos{width:28px;font-weight:700}
+  .match{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--linea)}
+  .match:last-child{border-bottom:0}
+  .match .c{text-align:right;font-weight:600}
+  .match .o{text-align:left;font-weight:600}
+  .score{min-width:64px;text-align:center;font-weight:800;font-size:17px;background:var(--sfondo);border-radius:8px;padding:4px 8px}
+  .score.vs{font-weight:600;font-size:13px;color:var(--muted)}
+  .meta{grid-column:1/-1;text-align:center;font-size:12px;color:var(--muted);margin-top:-4px}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#fff3cd;color:#8a6100;margin-left:6px}
+  .tag.r{background:#fde2e1;color:var(--rosso)}
+  .giornata{font-weight:700;margin:16px 0 4px;color:var(--blu2)}
+  .vuoto{text-align:center;padding:28px 10px;color:var(--muted)}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .reg h3{color:var(--blu)}
+  .reg table td,.reg table th{text-align:left}
+  a{color:var(--blu2)}
+  footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="badge">CSI</div>
+      <div>
+        <h1>CSI Future Football Cup</h1>
+        <div class="sub">Campionati giovanili CSI Firenze · Stagione 2026/27</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <button data-t="home" class="on">Home</button>
+      <button data-t="calendario">Calendario</button>
+      <button data-t="classifica">Classifica</button>
+      <button data-t="marcatori">Marcatori</button>
+      <button data-t="regolamento">Regolamento</button>
+      <button data-t="contatti">Contatti</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="selComp" class="sel"></div>
+
+  <section id="home">
+    <div class="grid2">
+      <div class="card">
+        <h2>Ultimi risultati</h2>
+        <div id="ultimi"></div>
+      </div>
+      <div class="card">
+        <h2>Prossime gare</h2>
+        <div id="prossime"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Il campionato</h2>
+      <p>La <b>CSI Future Football Cup</b> è il circuito di campionati giovanili organizzato con il Comitato CSI di Firenze: Under 11, Under 13, Under 15 e Under 17 femminile.</p>
+      <p class="muted">Su questo portale trovi calendari, risultati, classifiche, marcatori e regolamento, aggiornati dalla segreteria. Risultati e classifiche diventano ufficiali dopo l'omologazione.</p>
+    </div>
+  </section>
+
+  <section id="calendario" class="hidden"><div class="card"><h2>Calendario e risultati</h2><div id="cal"></div></div></section>
+  <section id="classifica" class="hidden"><div class="card"><h2>Classifica</h2><div id="cla"></div><p class="muted" style="margin-top:12px">G giocate · V vinte · N pareggiate · P perse · GF gol fatti · GS gol subiti · DR differenza reti. In caso di parità valgono i criteri dell'Art. 8 del regolamento.</p></div></section>
+  <section id="marcatori" class="hidden"><div class="card"><h2>Classifica marcatori</h2><div id="mar"></div></div></section>
+
+  <section id="regolamento" class="hidden">
+    <div class="card reg">
+      <h2>Regolamento Under 15 – Calcio a 5</h2>
+      <p class="muted">Stagione sportiva 2026/27</p>
+
+      <h3>Art. 1 – Organizzazione</h3>
+      <p>Il Comitato CSI di Firenze, con la segreteria organizzativa della CSI Future Football Cup, indice il Campionato Under 15 di Calcio a 5 per la stagione sportiva 2026/27.</p>
+
+      <h3>Art. 2 – Norme di riferimento</h3>
+      <p>Per quanto non previsto da questo regolamento valgono, in ordine: le norme del CSI raccolte in "Sport in Regola" e i comunicati ufficiali del CSI per la stagione 2026/27; il regolamento tecnico del Calcio a 5 del CSI; il Regolamento del Giuoco del Calcio a 5 della FIGC. La partecipazione al campionato comporta l'accettazione integrale di questo regolamento.</p>
+
+      <h3>Art. 3 – Partecipazione ed età</h3>
+      <p>Possono giocare gli atleti nati nel 2012 e negli anni successivi, purché abbiano compiuto 11 anni il giorno della gara.</p>
+      <p><b>Fuoriquota nati nel 2011.</b> Ogni squadra può inserire in distinta al massimo 2 atleti nati nel 2011. In campo può essercene al massimo 1 alla volta.</p>
+      <table><tr><th>Anno di nascita</th><th>In distinta</th><th>In campo insieme</th></tr>
+        <tr><td>2012 e successivi (11 anni compiuti)</td><td>senza limiti</td><td>senza limiti</td></tr>
+        <tr><td>2011 (fuoriquota)</td><td>massimo 2</td><td>massimo 1</td></tr></table>
+      <p>Se in campo ci sono contemporaneamente 2 fuoriquota, o se gioca un atleta che non ha l'età prevista, la squadra perde la gara a tavolino (Art. 15).</p>
+
+      <h3>Art. 4 – Tesseramento e certificati medici</h3>
+      <p>Possono scendere in campo solo atleti, allenatori e dirigenti tesserati CSI per la stagione 2026/27 con la squadra iscritta. L'elenco dei tesserati va inviato alla segreteria prima della prima gara. Ogni atleta deve avere un certificato medico valido per tutta la durata del campionato; un atleta senza certificato valido non può giocare. Nuovi atleti possono essere tesserati durante il campionato fino al termine indicato dalla segreteria e giocano dalla gara successiva alla comunicazione.</p>
+
+      <h3>Art. 5 – Distinta di gara e riconoscimento</h3>
+      <p>Prima di ogni gara ogni squadra consegna all'arbitro la distinta con: massimo 12 atleti, con numero di maglia, data di nascita e numero di tessera CSI; i fuoriquota 2011 indicati in modo chiaro (massimo 2); almeno un dirigente o allenatore maggiorenne tesserato. Gli atleti vanno riconosciuti con un documento d'identità o con la tessera CSI con foto. Una squadra deve presentarsi con almeno 4 atleti per iniziare la gara.</p>
+
+      <h3>Art. 6 – Formula</h3>
+      <p>La formula si decide in base al numero di squadre iscritte e viene pubblicata con il calendario: fino a 8 squadre girone unico all'italiana con andata e ritorno; oltre 8 squadre due o più gironi, poi una fase finale a eliminazione diretta.</p>
+
+      <h3>Art. 7 – Calendario</h3>
+      <p>Il calendario lo stila la segreteria tenendo conto, dove possibile, dei campi e dei giorni indicati dalle squadre. Il calendario pubblicato su questo portale è ufficiale: ogni modifica segue l'Art. 13.</p>
+
+      <h3>Art. 8 – Classifica e parità</h3>
+      <p>Punti: 3 per la vittoria, 1 per il pareggio, 0 per la sconfitta. In caso di parità: 1) punti negli scontri diretti; 2) differenza reti negli scontri diretti; 3) differenza reti generale; 4) maggior numero di gol segnati; 5) migliore posizione in Coppa Disciplina; 6) sorteggio. Nelle gare a eliminazione diretta, in caso di parità si calciano 3 rigori per squadra, poi a oltranza; niente tempi supplementari.</p>
+
+      <h3>Art. 9 – Regole di gioco</h3>
+      <table><tr><th>Voce</th><th>Regola</th></tr>
+        <tr><td>Giocatori</td><td>5 contro 5 (4 di movimento + portiere)</td></tr>
+        <tr><td>Tempi</td><td>2 tempi da 25 minuti non effettivi, intervallo di 5 minuti</td></tr>
+        <tr><td>Pallone</td><td>n. 4 a rimbalzo controllato</td></tr>
+        <tr><td>Campo e porte</td><td>campo da calcio a 5, porte 3 x 2 m</td></tr>
+        <tr><td>Calzature</td><td>scarpe da calcetto o da ginnastica; vietati i tacchetti</td></tr>
+        <tr><td>Parastinchi</td><td>obbligatori</td></tr></table>
+
+      <h3>Art. 10 – Sostituzioni</h3>
+      <p>Sostituzioni illimitate e "volanti", a gioco in corso, nella zona cambi davanti alla propria panchina. Il fuoriquota 2011 può entrare solo se in campo non c'è già l'altro fuoriquota.</p>
+
+      <h3>Art. 11 – Time-out</h3>
+      <p>Ogni squadra può chiedere 1 time-out di 1 minuto per tempo, a gioco fermo e con la palla in suo possesso.</p>
+
+      <h3>Art. 12 – Falli cumulativi e portiere</h3>
+      <p>Dal 6° fallo cumulativo di squadra in ogni tempo, ogni ulteriore fallo punibile con calcio di punizione diretto dà diritto a un tiro libero da 10 metri senza barriera. Calcio di rigore da 6 metri. Il portiere ha 4 secondi per rimettere in gioco la palla con le mani. Rimesse laterali con i piedi, entro 4 secondi.</p>
+
+      <h3>Art. 13 – Rinvii e spostamenti</h3>
+      <p>Una gara si può spostare solo con richiesta alla segreteria almeno 5 giorni prima, accordo scritto delle due squadre e nuova data entro 15 giorni (e prima delle ultime 2 giornate). La segreteria può rinviare d'ufficio una gara per cause di forza maggiore.</p>
+
+      <h3>Art. 14 – Ritardi</h3>
+      <p>Il tempo di attesa massimo è di 15 minuti; oltre, la squadra assente è considerata rinunciataria, salvo cause di forza maggiore documentate.</p>
+
+      <h3>Art. 15 – Rinunce e gare a tavolino</h3>
+      <p>La squadra che non si presenta, si ritira, schiera un atleta non tesserato, non in regola con età o fuoriquota, o squalificato, perde la gara a tavolino 0-6. Alla seconda rinuncia la squadra è esclusa dal campionato.</p>
+
+      <h3>Art. 16 – Ammonizioni e squalifiche</h3>
+      <p>I provvedimenti li decide il Giudice Sportivo del CSI Firenze e sono pubblicati nel comunicato settimanale. Diffida alla 3ª ammonizione; 1 giornata di squalifica alla 4ª e a ogni successiva; almeno 1 giornata per espulsione o espressione blasfema. La squalifica si sconta nella gara ufficiale successiva.</p>
+
+      <h3>Art. 17 – Coppa Disciplina</h3>
+      <p>Punti: 1 per ammonizione, 3 per espulsione, 1 per giornata di squalifica, 5 per rinuncia. Vince la squadra con meno punti.</p>
+
+      <h3>Art. 18 – Reclami</h3>
+      <p>I reclami vanno presentati al Giudice Sportivo del CSI Firenze secondo il Regolamento di Giustizia del CSI.</p>
+
+      <h3>Art. 19 – Arbitri</h3>
+      <p>Le gare sono dirette da arbitri designati dal CSI Firenze. Se l'arbitro non si presenta entro 15 minuti, le squadre possono accordarsi per far dirigere la gara a un tesserato maggiorenne, con accordo scritto in distinta; senza accordo la gara è rinviata.</p>
+
+      <h3>Art. 20 – Campi e comportamento</h3>
+      <p>La squadra di casa mette a disposizione campo, spogliatoi, pallone regolamentare e cassetta di primo soccorso. Ogni squadra risponde del comportamento di tesserati e sostenitori. A fine gara le squadre si salutano a centrocampo.</p>
+
+      <h3>Art. 21 – Risultati e comunicazioni</h3>
+      <p>Entro 24 ore la squadra di casa invia alla segreteria risultato, marcatori e foto del referto. Quanto pubblicato su questo portale vale come comunicazione ufficiale.</p>
+
+      <h3>Art. 22 – Premiazioni e norme finali</h3>
+      <p>Sono premiate le prime tre classificate, la vincitrice della Coppa Disciplina e il capocannoniere. La segreteria può modificare il regolamento per esigenze organizzative, comunicandolo a tutte le squadre.</p>
+    </div>
+  </section>
+
+  <section id="contatti" class="hidden">
+    <div class="card">
+      <h2>Contatti</h2>
+      <p><b>Segreteria CSI Future Football Cup</b></p>
+      <p>E-mail: <a href="mailto:csifuturefootballcup@gmail.com">csifuturefootballcup@gmail.com</a><br>
+      WhatsApp: <a href="https://wa.me/393920333692">392 033 3692</a> <span class="muted">(solo messaggi, niente chiamate)</span></p>
+    </div>
+  </section>
+</main>
+
+<footer id="agg"></footer>
+
+<script>
+const S = { dati:null, comp:null, tab:"home" };
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtData = (iso)=> iso ? new Date(iso).toLocaleString("it-IT",{weekday:"short",day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Rome"}) : "Data da definire";
+
+function nomeSq(id){ const s=S.dati.squadre.find(x=>x.id===id); return s?s.nome:"—"; }
+function partiteComp(){ return S.dati.partite.filter(p=>!S.comp||p.competizione===S.comp); }
+function giocata(p){ return p.golCasa!==null && p.golOspite!==null; }
+
+function rigaPartita(p){
+  const tag = p.stato==="Rinviata"?'<span class="tag r">Rinviata</span>':p.stato==="A tavolino"?'<span class="tag">A tavolino</span>':p.stato==="Giocata - da omologare"?'<span class="tag">In attesa di omologa</span>':"";
+  const sc = giocata(p)?`<div class="score">${p.golCasa} - ${p.golOspite}</div>`:`<div class="score vs">vs</div>`;
+  const campo = p.campo? (p.campo.maps?` · <a href="${esc(p.campo.maps)}" target="_blank" rel="noopener">${esc(p.campo.nome)}</a>`:` · ${esc(p.campo.nome)}`):"";
+  return `<div class="match"><div class="c">${esc(nomeSq(p.casa))}</div>${sc}<div class="o">${esc(nomeSq(p.ospite))}</div><div class="meta">${fmtData(p.data)}${campo}${tag}</div></div>`;
+}
+
+function renderSel(){
+  const c=S.dati.competizioni;
+  if(c.length<=1){ $("selComp").innerHTML=""; S.comp=c[0]?.id||null; return; }
+  if(!S.comp) S.comp=c[0].id;
+  $("selComp").innerHTML=c.map(x=>`<button data-c="${x.id}" class="${x.id===S.comp?"on":""}">${esc(x.nome)}</button>`).join("");
+  $("selComp").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.comp=b.dataset.c;renderAll();});
+}
+
+function renderHome(){
+  const ps=partiteComp();
+  const fatte=ps.filter(giocata).sort((a,b)=>(b.data||"").localeCompare(a.data||"")).slice(0,5);
+  const prox=ps.filter(p=>!giocata(p)&&p.stato!=="Rinviata").sort((a,b)=>(a.data||"9").localeCompare(b.data||"9")).slice(0,5);
+  $("ultimi").innerHTML=fatte.length?fatte.map(rigaPartita).join(""):'<div class="vuoto">Nessun risultato ancora.</div>';
+  $("prossime").innerHTML=prox.length?prox.map(rigaPartita).join(""):'<div class="vuoto">Il calendario sarà pubblicato a breve.</div>';
+}
+
+function renderCal(){
+  const ps=partiteComp();
+  if(!ps.length){ $("cal").innerHTML='<div class="vuoto">Il calendario sarà pubblicato a breve.</div>'; return; }
+  const g={}; ps.forEach(p=>{const k=p.giornata?`${p.giornata}ª giornata${p.fase?" – "+p.fase:""}`:(p.fase||"Altre gare");(g[k]=g[k]||[]).push(p);});
+  const keys=Object.keys(g).sort((a,b)=>(parseInt(a)||999)-(parseInt(b)||999));
+  $("cal").innerHTML=keys.map(k=>`<div class="giornata">${esc(k)}</div>`+g[k].sort((a,b)=>(a.data||"").localeCompare(b.data||"")).map(rigaPartita).join("")).join("");
+}
+
+function renderCla(){
+  const sq=S.dati.squadre.filter(s=>!S.comp||s.competizioni.includes(S.comp))
+    .sort((a,b)=>b.punti-a.punti||b.DR-a.DR||b.GF-a.GF||a.nome.localeCompare(b.nome));
+  if(!sq.length){ $("cla").innerHTML='<div class="vuoto">La classifica sarà disponibile con l\'inizio del campionato.</div>'; return; }
+  $("cla").innerHTML=`<div style="overflow-x:auto"><table><tr><th class="pos">#</th><th class="l">Squadra</th><th>Pt</th><th>G</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr>`+
+    sq.map((s,i)=>`<tr><td class="pos">${i+1}</td><td class="l">${esc(s.nome)}${s.penalizzazione?` <span class="tag r">-${s.penalizzazione}</span>`:""}</td><td class="pt">${s.punti}</td><td>${s.G}</td><td>${s.V}</td><td>${s.N}</td><td>${s.P}</td><td>${s.GF}</td><td>${s.GS}</td><td>${s.DR>0?"+":""}${s.DR}</td></tr>`).join("")+`</table></div>`;
+}
+
+function renderMar(){
+  const ids=new Set(S.dati.squadre.filter(s=>!S.comp||s.competizioni.includes(S.comp)).map(s=>s.id));
+  const m=S.dati.marcatori.filter(x=>ids.has(x.squadra));
+  $("mar").innerHTML=m.length?`<table><tr><th class="pos">#</th><th class="l">Giocatore</th><th class="l">Squadra</th><th>Gol</th></tr>`+
+    m.map((x,i)=>`<tr><td class="pos">${i+1}</td><td class="l">${esc(x.nome)}</td><td class="l">${esc(nomeSq(x.squadra))}</td><td class="pt">${x.gol}</td></tr>`).join("")+`</table>`
+    :'<div class="vuoto">Nessun gol ancora registrato.</div>';
+}
+
+function renderAll(){ renderSel(); renderHome(); renderCal(); renderCla(); renderMar(); }
+
+function setTab(t){
+  S.tab=t;
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
+  document.querySelectorAll("main section").forEach(s=>s.classList.toggle("hidden",s.id!==t));
+  $("selComp").classList.toggle("hidden",["regolamento","contatti"].includes(t));
+  history.replaceState(null,"","#"+t);
+}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{
+  S.dati=d; renderAll();
+  $("agg").textContent=d.aggiornato?"Ultimo aggiornamento: "+new Date(d.aggiornato).toLocaleString("it-IT",{timeZone:"Europe/Rome"}):"";
+}).catch(()=>{ S.dati={competizioni:[],squadre:[],partite:[],marcatori:[]}; renderAll(); });
+
+const h=location.hash.slice(1); if(h&&document.getElementById(h)) setTab(h);
+</script>
+</body>
+</html>
